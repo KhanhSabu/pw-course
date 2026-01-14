@@ -1,0 +1,96 @@
+Day 1:
+Ưu điểm playwright:
+- Crossbrowser: firefox, chrome, safari, webkit
+- Crossplatform: linux, mac os , window
+- Auto-wait: 5s
+- Web-first assertion: cú pháp viết nhanh, gọn gàng hơn và cơ chế tự động chờ
+- Tracing: Report, hiển thị từng step, pass fail, chạy trên trình duyệt nào, số lượng request
+- Code-gen: click UI tự động gen code
+- Chạy rất nhanh: so sánh vs selenium
+
+import {test} from '@playwright/test';
+Basic syntax
+test: test case 
+test.step: các bước trong test case
+test.describe : to nhất, gom các test case thành test suite
+
+Basic action
+
+---Navigate
+page.goto
+page.locator("//button").click();
+page.locator("//button").click({clickCount:3});
+page.locator("//button").dbclick();
+page.locator("//button").click({button:right});
+page.locator("").click({modifiers: [Alt,F4]})
+
+---Điền thông tin
+page.locator("").fill("abbc")
+page.locator("").pressSequentially("abc", {delay:100})
+
+--Checkbox, Radio
+
+const isChecked = await page.locator("").isChecked();
+
+page.locator("").check();
+page.locator("").unCheck();
+
+--Selection (Thẻ select có <option> ở phía trong)
+page.locator("@id='abc'").selectOption("Vietnam")
+page.locator("@id='abc'").selectOption(["Music","Art"])
+
+--Date picker, slider, color picker
+page.locator("@id='dob'").fill("01/09/1997") //calendar
+page.locator("@id='rating'").fill("3") //rating dạng kéo
+page.locator("@id='color'").fill("#e66456") //rating dạng kéo
+
+--File, hover
+page.locator("file element").setInputFiles("tests/abc/file.txt") -> nên để file sẵn trước vào testdata
+page.locator("hover element").hover() // cách hover để hiển thị tooltip
+
+--Confirmation dialog
+page.on('dialog', async dialog => dialog.accept());
+page.on('dialog', async dialog => dialog.dismiss());
+page.on('dialog', async dialog => console.log(dialog.message()));
+
+--Hook
+before all 
+-> before each 
+-> test 1 
+-> after each 
+-> before each
+-> test 2 
+-> after each  
+-> after all
+
+--Assertion, Web first assertion
+Web first assertion
+- có thể kết hợp với câu lệnh wait for cho đảm bảo 
+- chờ flexible tối đa 5s(có thể 2s element đã xuất hiện thì thoát ra khỏi hàng chờ luôn - khác fix cứng)
+
+--Class extend
+- 1 class gồm thuộc tính, hàm khởi tạo, method
+- class được extend được gọi là class con, sẽ kế thừa toàn bộ property(thuộc tính) và method(phương thức) của class cha 
+"
+Từ khoá export giúp chúng ta có thể xuất 1 biến, 1 hằng số ở 1 file và nhập (import)
+dùng ở file khác.
+Ví dụ:
+Tại file login-page.ts
+export class LoginPage {
+// Some code...
+}
+Tại file test.spec.ts
+import { LoginPage } from './page/login-page';
+"
+
+
+xpath: normaliza-space
+page.waitForFunction()
+force:true
+`${text gi do'}`
+
+test('Kiểm tra đăng nhập @smoke @fast', async ({ page }) => {
+  // ...
+});
+npx playwright test --grep @smoke|@fast
+npx playwright test --grep-invert @slow
