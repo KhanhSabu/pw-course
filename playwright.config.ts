@@ -42,6 +42,7 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+<<<<<<< Updated upstream
     {
       name: 'Mobile Safari',
       use: {
@@ -55,6 +56,15 @@ export default defineConfig({
     // },
 
     // {
+=======
+
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+
+    // {
+>>>>>>> Stashed changes
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
     // },
